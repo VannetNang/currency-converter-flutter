@@ -51,12 +51,17 @@ Ensure quality with Flutter’s built-in tools:
 
 Flutter is built on **three core layers**:  
 
-+-------------------+
-| Framework (UI) | → Widgets, animations, rendering system
-+-------------------+
-| Engine (C++) | → Rendering (Skia), text layout, low-level support
-+-------------------+
-| Embedder | → Platform-specific integration (iOS, Android, Web, Desktop)
-+-------------------+
+1. **Framework (UI)**  
+   - Written in Dart  
+   - Provides widgets, animations, and the rendering system  
+
+2. **Engine (C++)**  
+   - Responsible for rendering (via Skia graphics library)  
+   - Handles text layout and low-level rendering support  
+
+3. **Embedder**  
+   - Platform-specific integration (iOS, Android, Web, Desktop)  
+   - Connects Flutter to the underlying operating system  
 
 This layered architecture ensures **flexibility** and **performance** across platforms.  
+
