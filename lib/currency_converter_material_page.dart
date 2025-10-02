@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
 
-class CurrencyConverterMaterialPage extends StatelessWidget {
+class CurrencyConverterMaterialPage extends StatefulWidget {
   const CurrencyConverterMaterialPage({super.key});
+
+  @override
+  State createState() => _CurrencyConverterMaterialPageState();
+}
+
+class _CurrencyConverterMaterialPageState extends State {
+  final TextEditingController textEditingController = TextEditingController();
+  double result = 0;
+
+  final border = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    borderSide: BorderSide(
+      color: Colors.black,
+      width: 2,
+      strokeAlign: BorderSide.strokeAlignCenter,
+    ),
+  );
+
+  double usdToYen(String textController) {
+    double newNum = double.tryParse(textController) ?? 0;
+    return newNum * 148;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +44,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
           children: [
             Padding(padding: EdgeInsets.only(bottom: 10)),
             Text(
-              '0',
+              result == 0 ? result.toString() : '¥ ${result.toString()}',
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.w700,
@@ -33,18 +55,15 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
               child: TextField(
+                controller: textEditingController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 decoration: InputDecoration(
-                  hintText: 'Please enter the amount of number',
+                  hintText: 'Please enter the amount in USD',
                   prefixIcon: Icon(Icons.monetization_on_outlined),
                   filled: true,
                   fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
+                  focusedBorder: border,
+                  enabledBorder: border,
                 ),
               ),
             ),
@@ -52,17 +71,17 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 14),
               child: ElevatedButton(
-                onPressed: () => print('button clicked'),
-                style: ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 50),
-                  ),
-                  foregroundColor: WidgetStatePropertyAll(Colors.white),
-                  backgroundColor: WidgetStatePropertyAll(Colors.black),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
+                onPressed: () => {
+                  setState(() {
+                    result = usdToYen(textEditingController.text);
+                  }),
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  foregroundColor: (Colors.white),
+                  backgroundColor: (Colors.black),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
                 child: Text('Convert', style: TextStyle(fontSize: 16)),
