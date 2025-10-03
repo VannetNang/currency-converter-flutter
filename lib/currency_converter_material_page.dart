@@ -4,10 +4,12 @@ class CurrencyConverterMaterialPage extends StatefulWidget {
   const CurrencyConverterMaterialPage({super.key});
 
   @override
-  State createState() => _CurrencyConverterMaterialPageState();
+  State<CurrencyConverterMaterialPage> createState() =>
+      _CurrencyConverterMaterialPageState();
 }
 
-class _CurrencyConverterMaterialPageState extends State {
+class _CurrencyConverterMaterialPageState
+    extends State<CurrencyConverterMaterialPage> {
   final TextEditingController textEditingController = TextEditingController();
   double result = 0;
 
@@ -22,7 +24,8 @@ class _CurrencyConverterMaterialPageState extends State {
 
   double usdToYen(String textController) {
     double newNum = double.tryParse(textController) ?? 0;
-    return newNum * 148;
+
+    return newNum < 0 ? 0 : newNum * 148;
   }
 
   @override
@@ -32,7 +35,7 @@ class _CurrencyConverterMaterialPageState extends State {
       appBar: AppBar(
         title: Text(
           'Currency Converter',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
